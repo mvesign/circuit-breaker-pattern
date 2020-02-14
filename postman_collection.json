@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "56e273bf-17b3-4cc5-af58-9ba6048ad70f",
+		"name": "CircuitBreakerPattern",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Api",
+			"item": [
+				{
+					"name": "api/ok",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50000/api/ok",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"api",
+								"ok"
+							]
+						},
+						"description": "Try to get data from the external API."
+					},
+					"response": []
+				},
+				{
+					"name": "api/other-error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50000/api/other-error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"api",
+								"other-error"
+							]
+						},
+						"description": "Try to get data from the external API, but secretly expect a random, non-circuit breaker error that is not being retried."
+					},
+					"response": []
+				},
+        {
+          "name": "api/post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:50000/api/post",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "50000",
+              "path": [
+                "api",
+                "post"
+              ]
+            },
+            "description": "Try to send data to the external API, but secretly expect a random server error that is not being retried."
+          },
+          "response": []
+        },
+				{
+					"name": "api/server-error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50000/api/server-error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"api",
+								"server-error"
+							]
+						},
+						"description": "Try to get data from the external API, but secretly expect a random server error response that is retried due to setup policy."
+					},
+					"response": []
+				},
+				{
+					"name": "api/time-out",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50000/api/time-out",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"api",
+								"time-out"
+							]
+						},
+						"description": "Try to get data from the external API, but secretly expect a time-out response that is retried due to setup policy."
+					},
+					"response": []
+				},
+				{
+					"name": "api/too-many-requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50000/api/too-many-requests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"api",
+								"too-many-requests"
+							]
+						},
+						"description": "Try to get data from the external API, but secretly expect a too many requests response that is retried due to setup policy."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ExternalApi",
+			"item": [
+				{
+					"name": "external-api/ok",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/external-api/ok",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50001",
+							"path": [
+								"external-api",
+								"ok"
+							]
+						},
+						"description": "Get ok HTTP status code."
+					},
+					"response": []
+				},
+				{
+					"name": "external-api/other-error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/external-api/other-error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50001",
+							"path": [
+								"external-api",
+								"other-error"
+							]
+						},
+						"description": "Get a random, non-circuit breaker HTTP status code, which is present in the 4xx range."
+					},
+					"response": []
+				},
+				{
+					"name": "external-api/post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/api/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50000",
+							"path": [
+								"external-api",
+								"post"
+							]
+						},
+						"description": "Send a POST and get a random server error HTTP status code, which is present in the 4xx or 5xx range."
+					},
+					"response": []
+				},
+				{
+					"name": "external-api/server-error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/external-api/server-error",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50001",
+							"path": [
+								"external-api",
+								"server-error"
+							]
+						},
+						"description": "Get a random server error HTTP status code, which is present in the 5xx range."
+					},
+					"response": []
+				},
+				{
+					"name": "external-api/time-out",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/external-api/time-out",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50001",
+							"path": [
+								"external-api",
+								"time-out"
+							]
+						},
+						"description": "Get time-out HTTP status code."
+					},
+					"response": []
+				},
+				{
+					"name": "external-api/too-many-requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:50001/external-api/too-many-requests",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50001",
+							"path": [
+								"external-api",
+								"too-many-requests"
+							]
+						},
+						"description": "Get too many requests HTTP status code."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
