@@ -102,6 +102,13 @@ namespace CircuitBreakerPattern.Api
                 .AddHttpClient<ExternalApiService>()
                 .AddPolicyHandler(request => request.Method == HttpMethod.Get ? retryPolicy : noOpPolicy)
                 .AddPolicyHandler(request => request.Method == HttpMethod.Get ? breakerPolicy : noOpPolicy);
+
+
+
+            //TODO: Make logger work dynamically
+            //TODO: Implement fallback policy
+            //TODO: Move this functionality to service
+            // Check https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory
         }
     }
 }
